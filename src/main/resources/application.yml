@@ -2,7 +2,7 @@ spring:
   datasource:
     url: jdbc:h2:tcp://localhost:9093/C:/Users/haeun/IdeaProjects/jpa-book/data/jpashop
     username: sa
-    password: password
+#    password: password
 
   jpa:
     hibernate:

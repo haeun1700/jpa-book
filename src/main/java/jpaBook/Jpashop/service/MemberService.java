@@ -2,12 +2,9 @@ package jpaBook.Jpashop.service;
 
 import jpaBook.Jpashop.domain.Member;
 import jpaBook.Jpashop.repository.MemberRepository;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional; // jakara말고 springframework인 트랜젝션 사용
-
 import java.util.List;
 
 @Service

@@ -1,12 +1,12 @@
 package jpaBook.Jpashop.service;
 
+import jakarta.persistence.EntityManager;
 import jpaBook.Jpashop.domain.Member;
 import jpaBook.Jpashop.repository.MemberRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,9 +19,9 @@ class MemberServiceTest {
 
     @Autowired MemberService memberService;
     @Autowired MemberRepository memberRepository;
+    @Autowired EntityManager em;
 
     @Test
-    @Rollback(false) // 쿼리까지 확인 가능
     public void 회원가입() {
         //given
         Member member = new Member();
@@ -29,6 +29,7 @@ class MemberServiceTest {
         // when
         Long saveId = memberService.join(member);
         //then
+        em.flush();
         assertEquals(member, memberRepository.findOne(saveId));
     }
 

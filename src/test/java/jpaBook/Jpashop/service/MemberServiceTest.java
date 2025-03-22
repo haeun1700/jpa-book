@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@RunWith(SpringRunner.class) // junit4에서만 사용, junit5버전에서 사용안해도 가능
+@RunWith(SpringRunner.class) // junit4에서만 사용, junit5버전에서 사용안해도 가능, springboot와 같이 실행하는 것
 @SpringBootTest
 @Transactional
 class MemberServiceTest {
@@ -33,9 +33,10 @@ class MemberServiceTest {
         assertEquals(member, memberRepository.findOne(saveId));
     }
 
+//    @Test(expected = IllegalStateException.class) junit4는 가능, 5는 다음과 같이 작성
     @Test
-    public void 중복_회원_예외() throws Exception {
-        //given
+    void 중복_회원_예외() {
+        // given
         Member member1 = new Member();
         member1.setName("Kim");
 
@@ -43,15 +44,12 @@ class MemberServiceTest {
         member2.setName("Kim");
 
         // when
-        memberService.join(member1);
-        try{
-            memberService.join(member2); // 예외 발생
-        }catch (IllegalStateException e){
-            return;
-        }
+        assertThrows(IllegalStateException.class, () -> {
+            memberService.join(member1);
+            memberService.join(member2); // 여기서 예외 발생
+        });
 
-        //then
-        fail("예외 발생");
+        // then - 더 이상 fail 필요 없음!
     }
 
 }

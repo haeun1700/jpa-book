@@ -14,9 +14,12 @@ import java.util.List;
 @Transactional(readOnly = true)// lazy나 등등 이런게 가능, 트랜젝션 안에서 변경해야됨.
 public class MemberService {
 
-    @Autowired
     private MemberRepository memberRepository;
 
+    @Autowired
+    public void setMemberRepository(MemberRepository memberRepository) {
+        this.memberRepository = memberRepository;
+    }
 
     // 회원 가입
     @Transactional // 따로 설정한 것에 우선순위를 갖기 때문에  false를 가짐
